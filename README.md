@@ -1,7 +1,7 @@
 # AI Resume Analyzer and LinkedIn Scraper using Generative AI
 ---
 
- **Live Streamlit Application:** [ResumeRadarAI on Streamlit](https://resumeradarai.streamlit.app/)
+ **Live Streamlit Application:** [ResumeIntelligenceRAG on Streamlit](https://resume-intelligence-rag-ai.streamlit.app/)
 
 
 ## Introduction
