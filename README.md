@@ -4,6 +4,8 @@ An AI-powered Streamlit application that analyzes resumes using
 Generative AI and helps users discover relevant LinkedIn job
 opportunities.
 
+**Live Streamlit Application:** [Resume_Intelligence on Streamlit](https://resume-intelligence-rag-ai.streamlit.app/)
+
 ## 🚀 Features
 
 -   📄 Upload and analyze PDF resumes
