@@ -1,105 +1,207 @@
-# AI Resume Analyzer and LinkedIn Scraper using Generative AI
----
+# 🤖 AI Resume Analyzer & LinkedIn Job Scraper
 
- **Live Streamlit Application:** [ResumeIntelligenceRAG on Streamlit](https://resume-intelligence-rag-ai.streamlit.app/)
+An AI-powered Streamlit application that analyzes resumes using
+Generative AI and helps users discover relevant LinkedIn job
+opportunities.
 
+## 🚀 Features
 
-## Introduction
-Developed an advanced AI application that leverages Retrieval-Augmented Generation (RAG), Large Language Models (LLM), and Groq’s LLaMA 3 model for comprehensive resume analysis. It excels at summarizing the resume, evaluating strengths, identifying weaknesses, and offering personalized improvement suggestions while also recommending the perfect job titles. Additionally, it seamlessly employs Selenium to extract vital LinkedIn data, including company names, job titles, locations, job URLs, and detailed job descriptions. This application simplifies the job-seeking journey by equipping users with comprehensive insights to elevate their career opportunities.
+-   📄 Upload and analyze PDF resumes
+-   📝 AI-generated Resume Summary
+-   💪 Resume Strength & Weakness Analysis
+-   🎯 AI-based ATS Score
+-   💼 Recommended Job Roles
+-   🎤 AI-generated Interview Questions
+-   🔎 LinkedIn Job Search using Selenium
+-   🃏 Extract Job Title, Company, Location & URL
+-   📋 Extract Job Descriptions
+-   🧠 RAG-based resume analysis using FAISS
+-   💬 Groq LLM integration
 
+## 🛠️ Tech Stack
 
-## Table of Contents
+-   **Python**
+-   **Streamlit**
+-   **LangChain**
+-   **FAISS**
+-   **Hugging Face Embeddings**
+-   **Groq LLM**
+-   **Selenium**
+-   **Pandas & NumPy**
+-   **PyPDF**
 
-1. [Key Technologies and Skills](#key-technologies-and-skills)  
-2. [Installation](#installation)  
-3. [Usage](#usage)  
-4. [Features](#features)  
+## 🧠 Architecture
 
-##  Key Technologies and Skills
-
-- Python  
-- NumPy  
-- Pandas  
-- LangChain  
-- Large Language Model (LLM)  
-- Retrieval-Augmented Generation (RAG)  
-- Groq 
-- Selenium   
-- Hugging Face  
-- Streamlit
-
-
-## Installation
-
-To run this project, you need to install the following packages:
-
-```bash
-pip install numpy
-pip install pandas
-pip install streamlit
-pip install streamlit_option_menu
-pip install streamlit_extras
-pip install PyPDF2
-pip install langchain
-pip install openai
-pip install tiktoken
-pip install faiss-cpu
-pip install selenium
+``` text
+Resume PDF
+    ↓
+Text Extraction
+    ↓
+Text Chunking
+    ↓
+Hugging Face Embeddings
+    ↓
+FAISS Vector Database
+    ↓
+Relevant Resume Context
+    ↓
+Groq LLM
+    ↓
+AI Analysis
 ```
 
-## Usage
-To use this project, follow these steps:
-1. **Clone the repository:**  
-   ```bash
-   https://github.com/ramendrasingh97204/AI-Resume-Analyzer-LinkedIn-Job-Scraper-using-Generative-AI
-2. **Install the required packages:**  
-   ```bash
-   pip install -r requirements.txt
-3. **Run the Streamlit app:**  
-   ```bash
-   streamlit run app.py
-4. **Access the app in your browser at:**  
-   ```bash
-   http://localhost:8501
+### LinkedIn Scraping
 
-## Features
+``` text
+Job Title + Location + Job Count
+              ↓
+      LinkedIn Search URL
+              ↓
+       Selenium WebDriver
+              ↓
+        Open LinkedIn
+              ↓
+       Scroll & Load Jobs
+              ↓
+         Job Cards
+              ↓
+   Extract Job Information
+              ↓
+ Job Title | Company | Location | URL
+              ↓
+      Open Job Posting URLs
+              ↓
+      Extract Job Description
+```
 
-### 1. Easy User Experience
-- Resume Analyzer AI makes it easy for users. You can upload your resume and enter your **Groq API key** without any hassle.  
-- The application is designed to be user-friendly so that anyone can use its powerful resume analysis features.  
-- It also uses the `PyPDF2` library to quickly extract text from your uploaded resume, which is the first step in doing a thorough analysis.
+### 🔎 LinkedIn Scraping Details
 
-### 2. Smart Text Analysis with Langchain
-- It uses a smart method via the Langchain library to break long sections of text from resumes into smaller, meaningful chunks.  
-- This clever technique improves the accuracy of the resume analysis and gives users practical advice to enhance their job prospects.
+The LinkedIn scraper is implemented using **Selenium WebDriver**.
 
-### 3. Enhanced LLM Integration with FAISS and Groq
-- Seamlessly connects to **Groq's high-performance inference API** using your Groq API key for ultra-fast, low-latency LLM interactions.  
-- FAISS (Facebook AI Similarity Search) converts both the text chunks and query data into numerical vectors, simplifying and speeding up the matching process.
+The user provides:
 
-### 4. Intelligent Chunk Selection in RAG and LLM
-- Retrieves relevant resume chunks by comparing user queries with vector embeddings and selecting the top K based on similarity scores.  
-- Uses **LLaMA 3 8B model** hosted on Groq to analyze and generate smart responses from these retrieved chunks.
+-   **Job Title** --- e.g. `Data Analyst`
+-   **Job Location** --- e.g. `India`
+-   **Job Count** --- number of jobs to fetch
 
-### 5. Robust Question-Answering Pipeline
-- Processes the top K retrieved documents along with the user query to generate meaningful and coherent answers.  
-- The LLM understands context and extracts the most relevant content, delivering precise and insightful feedback.
+The application builds the LinkedIn search URL and Selenium opens it in
+the browser.
 
-### 6. Comprehensive Resume Analysis
-- **Summary:** Offers a quick, insightful overview of your resume including qualifications, key experience, skills, projects, and achievements.  
-- **Strength:** Highlights strong points in your resume based on qualifications, experience, and accomplishments.  
-- **Weakness:** Identifies areas of improvement and provides actionable suggestions to convert them into strengths.  
-- **Suggestion:** Recommends personalized job titles aligned with your resume to optimize your job search experience.
+The scraper then:
 
+1.  Opens LinkedIn using Selenium.
+2.  Navigates to the generated job-search URL.
+3.  Scrolls the page to load job listings.
+4.  Detects LinkedIn job cards using CSS selectors.
+5.  Extracts:
+    -   Company Name
+    -   Job Title
+    -   Location
+    -   Job URL
+6.  Opens individual job URLs.
+7.  Extracts the Job Description.
+8.  Stores the results in a Pandas DataFrame.
+9.  Displays the job postings in Streamlit.
 
-### 🔍 Selenium-Powered LinkedIn Data Scraping
+Example extracted data:
 
-Utilizing **Selenium** and a **Webdriver** automated test tool, this feature enables users to input job titles and automates the data scraping process from LinkedIn. The scraped data includes crucial details such as:
+``` text
+Company Name     → ABC Company
+Job Title        → Data Analyst
+Location         → India
+Website URL      → LinkedIn Job URL
+Job Description  → Complete job description
+```
 
--  Company names  
--  Job titles  
--  Locations  
--  Job URLs  
--  Detailed job descriptions  
+This job-description data can also be used in future versions for
+**Resume vs Job Description matching** and calculating a personalized
+job-fit score.
 
-This streamlined process allows users to easily review job listings and apply for positions, simplifying their overall job search and application experience.
+## 📁 Project Structure
+
+``` text
+AI-Resume-Analyzer/
+│
+├── app.py
+├── linkedin_scraper.py
+├── resume_utils.py
+├── prompts.py
+├── requirements.txt
+└── README.md
+```
+
+## ⚙️ Installation
+
+``` bash
+git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
+cd YOUR_REPOSITORY
+
+python -m venv venv
+venv\Scripts\activate
+
+pip install -r requirements.txt
+```
+
+## 🔑 API Key
+
+Enter your **Groq API Key** through the Streamlit sidebar.
+
+Do not commit API keys to GitHub.
+
+## ▶️ Run
+
+``` bash
+streamlit run app.py
+```
+
+Open:
+
+``` text
+http://localhost:8501
+```
+
+## 🔍 How It Works
+
+### Resume Analysis
+
+1.  Upload your resume.
+2.  Resume text is extracted from the PDF.
+3.  Text is split into chunks.
+4.  Chunks are converted into embeddings.
+5.  FAISS stores the embeddings.
+6.  Relevant resume context is retrieved.
+7.  Groq LLM generates the selected analysis.
+
+### Job Search
+
+1.  Select **Recommended Jobs**.
+2.  Enter Job Title, Location and Job Count.
+3.  Selenium opens LinkedIn.
+4.  Jobs are loaded through scrolling.
+5.  Job cards are scraped.
+6.  Job descriptions are extracted.
+7.  Results are displayed in Streamlit.
+
+## 🔮 Future Enhancements
+
+-   🎯 Resume vs Job Description Match Score
+-   🤖 AI Career Chatbot
+-   🎤 AI Mock Interview
+-   📚 Personalized Learning Roadmap
+-   📋 Job Application Tracker
+-   🧩 Skill Gap Analysis
+-   📊 Job Fit Score based on resume and job description
+
+## ⚠️ Limitations
+
+-   LinkedIn can change its page structure and CSS selectors.
+-   Selenium-based scraping may require browser/driver configuration.
+-   Cloud deployment requires a compatible headless browser setup.
+-   ATS score is an AI-based estimate and may differ from a company's
+    actual ATS.
+
+## 👨‍💻 Author
+
+**Ruchit Chaudhary**
+
+B.Tech --- Artificial Intelligence
