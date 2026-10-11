@@ -206,4 +206,4 @@ http://localhost:8501
 
 **Ramendra Singh**
 
-B.Tech --- Artificial Intelligence
+B.Tech --- Artificial Intelligence & Machine Learning
