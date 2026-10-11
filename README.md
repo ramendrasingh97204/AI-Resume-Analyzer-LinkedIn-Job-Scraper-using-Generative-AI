@@ -202,6 +202,6 @@ http://localhost:8501
 
 ## 👨‍💻 Author
 
-**Ruchit Chaudhary**
+**Ramendra Singh**
 
 B.Tech --- Artificial Intelligence
